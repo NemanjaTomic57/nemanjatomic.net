@@ -1,3 +1,8 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://nemanjatomic.net/'
 languageCode = 'en-us'
-title = 'My New Hugo Project'
+title = 'My Personal Blog'
+theme = ['zen']
+[params]
+  logopath = '/images/logo.svg'
+  logowidth = '60'
+
