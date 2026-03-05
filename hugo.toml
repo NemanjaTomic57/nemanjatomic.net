@@ -1,8 +1,0 @@
-baseURL = 'https://nemanjatomic.net/'
-languageCode = 'en-us'
-title = 'My Personal Blog'
-theme = ['zen']
-[params]
-  logopath = '/images/logo.svg'
-  logowidth = '60'
-

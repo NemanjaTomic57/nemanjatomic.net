@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Identity and Access Management: Authentication and Authorization – Nemanja Tomic</title>
+
+<meta name="created" content="2026-03-05T15:17:45+0100">
+<meta name="modified" content="2026-03-05T15:17:45+0100">
+<meta name="author" content="Nemanja Tomic">
+<meta name="contact" content="nemanja.tomic@ik.me">
+<meta property="og:site_name" content="Nemanja Tomic">
+<meta property="og:title" content="Identity and Access Management: Authentication and Authorization">
+<meta property="og:url" content="http://localhost:1313/blog/identity-and-access-management-authentication-and-authorization/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.157.0">
+
+
+
+<link rel="canonical" href="http://localhost:1313/blog/identity-and-access-management-authentication-and-authorization/">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting","headline": "Identity and Access Management: Authentication and Authorization",
+    "datePublished": "2026-03-05T15:17:45+01:00",
+    "dateModified": "2026-03-05T15:17:45+01:00",
+    "url" : "http://localhost:1313/blog/identity-and-access-management-authentication-and-authorization/",
+    
+    "author": {
+      "@type": "Person",
+      "name": "Nemanja Tomic"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http://localhost:1313/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nemanja Tomic",
+      "url": "http://localhost:1313/"
+    }
+  }
+</script>
+
+<script>
+(() => {
+  // <stdin>
+  (function() {
+    document.querySelector("html").classList.replace("nojs", "js");
+  })();
+})();
+
+</script>
+
+<script defer src="/js/script.5ed52cdd956021fd7194109b25dbc5cbe93a1085461b9f29b1284df94c19481c.js"></script>
+
+
+
+
+
+
+</head>
+
+<body class="single-page section-page--blog">
+<div class="page layout__page">
+<header class="header layout__header">
+<a href="/" title="Home" rel="home" class="header__logo">
+<img src="/images/logo.png" width="75" alt="Home" class="header__logo-image">
+</a>
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic</span></a>
+</h1>
+<div class="region header__region">
+</div>
+</header>
+
+<nav class="main-menu mx--xs layout__navigation" aria-label="Main menu">
+<ul class="flex-inline mx--0">
+<li><a href="/"><span>Home</span></a></li>
+<li><a href="/blog/" aria-current="page"><span>Blog</span></a></li>
+<li><a href="/"><span>Contact</span></a></li>
+</ul>
+</nav>
+<main class="main layout__main">
+<article class="single-view single-view--blog">
+<header>
+<h1 class="title">Identity and Access Management: Authentication and Authorization</h1>
+</header>
+
+<p>Welcome to the first part of my short trilogy about the topic identity and access management. In this series, we will walk through the best practices in todays world of IT regarding the management of users and persisting user sessions securely.</p>
+<p>The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where weâ€™ll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.</p>
+<h1 id="authentication-vs-authorization---what-is-the-difference">Authentication vs Authorization - What is the Difference?</h1>
+<p>The difference between authentication and authorization is best explained with a real life example. Imagine you want to log into your favourite social media platform. First, you&rsquo;d have to log into your account. This step is called authorization, and here you are only proving that you are who you say you are. If the credentials match a database entry, then you are authenticated and may use the platform as a logged in user. The second step is authorization, and this is happening behind the scenes. Here gets decided what you are allowed to see. For example you can see other peoples posts, your own posts and even your private informations. But you can not see the private information of others, because you are not authorized.</p>
+<p>In a nutshell, authentication decides who you are and authorization decides what you are allowed to do. Pretty easy, right? Now let&rsquo;s take a look on the different techniques &amp; standards for authentication and authorization.</p>
+<h1 id="common-authentication-techniques--standards">Common Authentication Techniques &amp; Standards</h1>
+<h2 id="passwords">Passwords</h2>
+<p>The first rule when it comes to authentication is to never ever save your passwords in a clear text format in you database. It is just way to insecure. If someone got access to your database, your users are all compromised. And if you are in Europe, you&rsquo;ll also get in trouble with the law because this practice is not DSGVO conform.</p>
+<p>Instead, we are saving the passwords in a <a href="https://www.geeksforgeeks.org/dsa/introduction-to-hashing-2/">hashed format</a>. For anyone wondering what hashes do, they make it very computationally expensive to get the plain text password out of it. It is however very easy to check if a password matches a hash, so we won&rsquo;t have any problem when we want to check if the credentials are right. I like to compare them to fingerprints. They are very easy to identify, but basically impossible to recreate from scratch.</p>
+<p>After you saved your passwords as hashes in the database, the only thing you have to do is to turn the entered password from the user in its hash equivalent and check if the two hashes match. If they do, the password is correct and the user is authenticated. You&rsquo;d also want to use a service for this. Doing this completely from scratch is not necessary, since there are already tons of solutions for hashing passwords and storing users in a database.</p>
+<h2 id="multi-factor-authentication">Multi-Factor Authentication</h2>
+<p>Multi-factor authentication (MFA) doubles the protection against hackers by not only checking your password, but also another point of knowledge that only you have access to. Most MFA authentication methodology is based on one of three types of additional information:</p>
+<ol>
+<li>Things you know (knowledge), such as a password or PIN</li>
+<li>Things you have (possession), such as a badge or smartphone</li>
+<li>Things you are (inherence), such as a biometric like fingerprints or voice recognition</li>
+</ol>
+<p>Personally, I hate this solution for one simple reason. It is a complete and utter waste of your time. Imagine having to pull up some app on your phone every time you want to log into your GitHub or online banking account. I really wonder how much time some people have wasted in their life just approving the MFA question. There are better solutions today, for example passwordless login. Nevertheless, every platform should have MFA, simply because not everyone uses passwordless authentication.</p>
+<h2 id="single-sign-on">Single Sign-On</h2>
+<p>Single sign-on (SSO) is another great invention that lets a user log in once and then access multiple applications or systems without having to log in again for each one.</p>
+<p>Think about what you can access as soon as you log into your Google account. Mail, Calendar, Drive, YouTube, &hellip; The list goes on and on. That&rsquo;s SSO.</p>
+<p>Now you might think &ldquo;Hm, so when I log into GitHub with my Google account, thats SSO, right?&rdquo;. Not quite. What you are using here is called OAuth 2.0, which is an authorization framework that only allows GitHub to use the data of your Google account. It is similar, but not the same.</p>
+<h2 id="directory-based-auth">Directory-based Auth</h2>
+<p>There are some cases where instead of managing users for a web application, you manage them for internal systems, for virtual machines. Now you could enter each virtual machine via SSH and manage the users locally, but that is not very efficient.</p>
+<p>Instead it is common practice to have an Active Directory somewhere and the virtual machines connect and manage their users and groups via the Active Directory. Very often used in enterprise or infrastructure environments and compatible with Windows, MacOS and Linux.</p>
+<h1 id="common-authorization-techniques--standards">Common Authorization Techniques &amp; Standards</h1>
+<p>After the user is authenticated, there are different approaches on authorization. We will cover the four most common and foundational authorization models:</p>
+<ul>
+<li>Role-Based Access Control</li>
+<li>Rule-Based Access Control</li>
+<li>Attribute-Based Access Control</li>
+<li>Mandatory-Based Access Control</li>
+</ul>
+<h2 id="role-based-access-control">Role-based Access Control</h2>
+<p>Role-Based Access Control (RBAC) is the most used method for managing user access to systems and resources based on their role within a team or larger organization. At its core, every role-based access control system follows the same basic principles:</p>
+<ul>
+<li>Each user is assigned one or more roles.</li>
+<li>User roles are assigned permissions.</li>
+<li>Users gain access to permissions by being active members of a role.</li>
+</ul>
+<p>In many cases, RBAC models establish a role hierarchy, in which the role structure resembles the hierarchy of the organization and may include roles for administrators, end users, and guests, and any specialized group in between. Some role hierarchies may be inheritance hierarchies, where more senior user roles are automatically grated the roles beneath them along with their privileges. In other cases, the hierarchy may be arbitrary and users granted a senior role do not necessarily inherit descendent roles by default.</p>
+<h2 id="rule-based-access-control-rubac">Rule-based Access Control (RuBAC)</h2>
+<p>In this model, access is granted or denied <strong>based on a set of predetermined rules</strong> that involves individual user criteria or conditions. Implementation includes identifying user-specific needs, creating [identity and access management (IAM])(<a href="https://www.redhat.com/en/topics/security/what-identity-and-access-management-iam">https://www.redhat.com/en/topics/security/what-identity-and-access-management-iam</a>) policies that define the rules for these needs, and applying conditions to enhance security. Rules are typically based on conditions such as time of access, IP address, and multi-factor authentication. For example, access may be granted only during business hours, if the user is securely logged into a Virtual Private Network (VPN), or in on-premise applications only.</p>
+<h2 id="attribute-based-access-control-abac">Attribute-based Access Control (ABAC)</h2>
+<p>ABAC is <strong>based on user, resource, and environment attributes</strong> and evaluates these multiple characteristics simultaneously. For example, when a user provides credentials to log into a cloud service, the system will retrive the user&rsquo;s attributes - such as their roles or permissions - from their profile. Then, it will identify the resource attributes such as file type, ownership, and sensitivity with contextual attributes such as time of access, user location, and if the user is requesting access on a secure network. The system will then evaluate whether the combined attributes meet the security policies and make a decision to grant or deny access.</p>
+<h2 id="mandatory-based-access-control-mac">Mandatory-based Access Control (MAC)</h2>
+<p>This security technique enforces access restrictions <strong>based on fixed mandatory policies and rules set by system admins</strong> where permissions can&rsquo;t be modified by users. Disabling user access modifications ensures that sensitive information is protected according to non-negotiable security protocols. In this system, each user is assigned a predetermined security level and resources are classified by its level of sensitivity. Access is granted or denied depending on whether a user&rsquo;s security level matches or surpasses the resource&rsquo;s classification level.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>While the concept of authentication and authorization does seem pretty simple at first, there are just so many techniques for implementation that one can quickly lose sight, but I think the blog gives a pretty good outline on how it works. Let&rsquo;s wrap this up.</p>
+<p>We learned that authentication is responsible for proving the identity of the user. There are many things to consider when authenticating a user. The most important one is to store hashed passwords in your database instead of plain text. We also learned about the usefulness of MFA and SSO, and we learned how we can authenticate a multiple of users centrally in an enterprise environment using directory-based authentication.</p>
+<p>On the other hand, there is authorization for checking if the user should be allowed to access the requested resource. We covered four common authorization techniques. While they do seem similar at first, they have minor differences and sometimes, you really do want to use something different than RBAC. But for most use-cases, I&rsquo;d stick with RBAC.</p>
+<p>In the next part, we will go deeper into OAuth and OICD, two technologies that revolutionized the way how users can log into their accounts.</p>
+
+
+</article>
+</main>
+
+
+<footer class="footer layout__footer mt--l">
+<p><span>© Nemanja Tomic</span></p>
+
+
+
+</footer>
+
+</div>
+</body>
+</html>

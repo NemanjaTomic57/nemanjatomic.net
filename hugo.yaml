@@ -1,0 +1,27 @@
+---
+title: "Nemanja Tomic"
+baseURL: "https://nemanjatomic.net/"
+theme: "zen"
+languageCode: "en-us"
+
+params:
+  author:
+    name: "Nemanja Tomic"
+    url: "https://nemanjatomic.net/"
+  logowidth: "75"
+  contact: "nemanja.tomic@ik.me"
+  description: "My personal blog where I write about IT and philosophy."
+
+languages:
+  en:
+    menu:
+      main:
+        - name: "Home"
+          weight: -10
+          pageRef: "/"
+        - name: "Blog"
+          weight: 10
+          pageRef: "/blog/"
+        - name: "Contact"
+          weight: 20
+          pageRef: "/contact/"
