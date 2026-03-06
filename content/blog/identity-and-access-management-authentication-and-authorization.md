@@ -5,7 +5,7 @@ title = 'Identity and Access Management: Authentication and Authorization'
 
 Welcome to the first part of my short trilogy about the topic identity and access management. In this series, we will walk through the best practices in todays world of IT regarding the management of users and persisting user sessions securely. 
 
-The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where weâ€™ll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.
+The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where we'll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.
 
 # Authentication vs Authorization - What is the Difference?
 

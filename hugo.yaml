@@ -1,16 +1,47 @@
 ---
-title: "Nemanja Tomic"
+title: "Nemanja Tomic - Blogging About Tech"
 baseURL: "https://nemanjatomic.net/"
+# TODO: Create custom theme
 theme: "zen"
 languageCode: "en-us"
+
+markup:
+  goldmark:
+    parser:
+      attribute:
+        block: true
+    renderer:
+      unsafe: true
+  highlight:
+    style: github
 
 params:
   author:
     name: "Nemanja Tomic"
     url: "https://nemanjatomic.net/"
-  logowidth: "75"
   contact: "nemanja.tomic@ik.me"
   description: "My personal blog where I write about IT and philosophy."
+  dateformat: "2 January, 2006"
+  logowidth: "75"
+  mainSections:
+    - blog
+  feedlinks: true
+  mobileMenu: true
+  poweredby: true
+  realfavicongenerator: true
+  sidebar: false
+  submitted: true
+
+outputFormats:
+  SearchIndex:
+    mediaType: "application/json"
+    baseName: "searchindex"
+    isPlainText: true
+    notAlternative: true
+
+outputs:
+  home: ["HTML", "RSS", "JSON", "SearchIndex"]
+  section: ["HTML", "RSS", "JSON"]
 
 languages:
   en:
@@ -22,6 +53,10 @@ languages:
         - name: "Blog"
           weight: 10
           pageRef: "/blog/"
-        - name: "Contact"
-          weight: 20
-          pageRef: "/contact/"
+        # TODO: About and Contact page
+        # - name: "About"
+        #   weight: 15
+        #   pageRef: "/about/"
+        # - name: "Contact"
+        #   weight: 20
+        #   pageRef: "/contact/"

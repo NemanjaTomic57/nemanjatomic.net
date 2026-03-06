@@ -3,13 +3,13 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Identity and Access Management: Authentication and Authorization – Nemanja Tomic</title>
+<title>Identity and Access Management: Authentication and Authorization – Nemanja Tomic - Blogging About Tech</title>
 
 <meta name="created" content="2026-03-05T15:17:45+0100">
 <meta name="modified" content="2026-03-05T15:17:45+0100">
 <meta name="author" content="Nemanja Tomic">
 <meta name="contact" content="nemanja.tomic@ik.me">
-<meta property="og:site_name" content="Nemanja Tomic">
+<meta property="og:site_name" content="Nemanja Tomic - Blogging About Tech">
 <meta property="og:title" content="Identity and Access Management: Authentication and Authorization">
 <meta property="og:url" content="http://localhost:1313/blog/identity-and-access-management-authentication-and-authorization/">
 <meta property="og:type" content="article">
@@ -23,6 +23,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/mobilemenu.css" media="screen">
 <link rel="stylesheet" href="/css/print.css" media="print">
 
 <script type="application/ld+json">
@@ -43,7 +44,7 @@
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Nemanja Tomic",
+      "name": "Nemanja Tomic - Blogging About Tech",
       "url": "http://localhost:1313/"
     }
   }
@@ -59,6 +60,7 @@
 
 </script>
 
+<script defer src="/js/mobilemenu.91539dcbc30264a42d652fdd6446fb725e2e13cecc3644eab74db3aad1b1d9d2.js"></script>
 <script defer src="/js/script.5ed52cdd956021fd7194109b25dbc5cbe93a1085461b9f29b1284df94c19481c.js"></script>
 
 
@@ -75,7 +77,7 @@
 <img src="/images/logo.png" width="75" alt="Home" class="header__logo-image">
 </a>
 <h1 class="header__site-name">
-<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic</span></a>
+<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic - Blogging About Tech</span></a>
 </h1>
 <div class="region header__region">
 </div>
@@ -85,17 +87,40 @@
 <ul class="flex-inline mx--0">
 <li><a href="/"><span>Home</span></a></li>
 <li><a href="/blog/" aria-current="page"><span>Blog</span></a></li>
-<li><a href="/"><span>Contact</span></a></li>
 </ul>
 </nav>
+<div class="mobile-nav" dir="ltr" hidden>
+  <div class="mobile-nav__cover"></div>
+  <button class="mobile-nav__toggle button" aria-expanded="false" aria-controls="sheet">
+    Menu
+    <svg class="mobile-nav__hamburger" viewBox="0 0 100 100" focusable="false" aria-hidden="true">
+      <rect width="80" height="12" x="10" y="20" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="45" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="70" rx="5"></rect>
+    </svg>
+  </button>
+  <div class="mobile-nav__sheet link-inverted link-nav" id="sheet" aria-hidden="true">
+    <div class="mobile-nav__region"></div>
+    <nav class="mobile-nav__main-menu" aria-label="Main menu">
+    <ul class="mobile-nav__navbar">
+    <li><a href="/"><span>Home</span></a></li>
+    <li><a href="/blog/" aria-current="page"><span>Blog</span></a></li>
+    </ul>
+    </nav>
+  </div>
+</div>
 <main class="main layout__main">
 <article class="single-view single-view--blog">
 <header>
-<h1 class="title">Identity and Access Management: Authentication and Authorization</h1>
+<h1 class="title mb--xxs">Identity and Access Management: Authentication and Authorization</h1>
+<div class="submitted meta">
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2026-03-05T15:17:45&#43;01:00">5 March, 2026</time>
+
+</div>
 </header>
 
 <p>Welcome to the first part of my short trilogy about the topic identity and access management. In this series, we will walk through the best practices in todays world of IT regarding the management of users and persisting user sessions securely.</p>
-<p>The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where weâ€™ll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.</p>
+<p>The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where we&rsquo;ll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.</p>
 <h1 id="authentication-vs-authorization---what-is-the-difference">Authentication vs Authorization - What is the Difference?</h1>
 <p>The difference between authentication and authorization is best explained with a real life example. Imagine you want to log into your favourite social media platform. First, you&rsquo;d have to log into your account. This step is called authorization, and here you are only proving that you are who you say you are. If the credentials match a database entry, then you are authenticated and may use the platform as a logged in user. The second step is authorization, and this is happening behind the scenes. Here gets decided what you are allowed to see. For example you can see other peoples posts, your own posts and even your private informations. But you can not see the private information of others, because you are not authorized.</p>
 <p>In a nutshell, authentication decides who you are and authorization decides what you are allowed to do. Pretty easy, right? Now let&rsquo;s take a look on the different techniques &amp; standards for authentication and authorization.</p>
@@ -153,9 +178,9 @@
 
 
 <footer class="footer layout__footer mt--l">
-<p><span>© Nemanja Tomic</span></p>
+<p><span>© Nemanja Tomic - Blogging About Tech</span></p>
 
-
+<p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/frjo/hugo-theme-zen">Zen theme</a>.</p>
 
 </footer>
 

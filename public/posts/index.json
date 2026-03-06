@@ -1,0 +1,25 @@
+
+{
+    "version": "https://jsonfeed.org/version/1.1",
+    "title": "Posts on Nemanja Tomic - Blogging About Tech",
+    "description": "Recent content in Posts on Nemanja Tomic - Blogging About Tech",
+    "home_page_url": "http://localhost:1313/",
+    "feed_url": "http://localhost:1313/posts/index.json",
+    "language": "en-us",
+    "authors": [
+        {
+            "name": "Nemanja Tomic",
+            "url": "https://nemanjatomic.net/"
+        }
+    ],
+    "items": [
+        {
+            "title": "What Is Devops",
+            "date_published": "2026-03-02T11:35:51+01:00",
+            "date_modified": "2026-03-02T11:35:51+01:00",
+            "id": "http://localhost:1313/posts/what-is-devops/",
+            "url": "http://localhost:1313/posts/what-is-devops/",
+            "content_html": "\u003ch3 id=\"this-is-my-first-blog-post\"\u003eThis is My First Blog Post\u003c/h3\u003e\n"
+        }
+        ]
+}
