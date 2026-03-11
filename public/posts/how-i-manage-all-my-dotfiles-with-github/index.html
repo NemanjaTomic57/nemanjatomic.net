@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>How I Manage All My Configuration Files – Nemanja Tomic - Blogging About Tech</title>
+
+<meta name="created" content="2025-09-21T14:53:06+0100">
+<meta name="modified" content="2025-09-21T14:53:06+0100">
+<meta name="author" content="Nemanja Tomic">
+<meta name="contact" content="nemanja.tomic@ik.me">
+<meta property="og:site_name" content="Nemanja Tomic - Blogging About Tech">
+<meta property="og:title" content="How I Manage All My Configuration Files">
+<meta property="og:url" content="http://localhost:1313/posts/how-i-manage-all-my-dotfiles-with-github/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.157.0">
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/how-i-manage-all-my-dotfiles-with-github/">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/mobilemenu.css" media="screen">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "How I Manage All My Configuration Files",
+    "datePublished": "2025-09-21T14:53:06+01:00",
+    "dateModified": "2025-09-21T14:53:06+01:00",
+    "url" : "http://localhost:1313/posts/how-i-manage-all-my-dotfiles-with-github/",
+    
+    "author": {
+      "@type": "Person",
+      "name": "Nemanja Tomic"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http://localhost:1313/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nemanja Tomic - Blogging About Tech",
+      "url": "http://localhost:1313/"
+    }
+  }
+</script>
+
+<script>
+(() => {
+  // <stdin>
+  (function() {
+    document.querySelector("html").classList.replace("nojs", "js");
+  })();
+})();
+
+</script>
+
+<script defer src="/js/mobilemenu.91539dcbc30264a42d652fdd6446fb725e2e13cecc3644eab74db3aad1b1d9d2.js"></script>
+<script defer src="/js/script.5ed52cdd956021fd7194109b25dbc5cbe93a1085461b9f29b1284df94c19481c.js"></script>
+
+
+
+
+
+
+</head>
+
+<body class="single-page section-page--posts">
+<div class="page layout__page">
+<header class="header layout__header">
+<a href="/" title="Home" rel="home" class="header__logo">
+<img src="/images/logo.png" width="75" alt="Home" class="header__logo-image">
+</a>
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic - Blogging About Tech</span></a>
+</h1>
+<div class="region header__region">
+</div>
+</header>
+
+<nav class="main-menu mx--xs layout__navigation" aria-label="Main menu">
+<ul class="flex-inline mx--0">
+<li><a href="/"><span>Home</span></a></li>
+<li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+</ul>
+</nav>
+<div class="mobile-nav" dir="ltr" hidden>
+  <div class="mobile-nav__cover"></div>
+  <button class="mobile-nav__toggle button" aria-expanded="false" aria-controls="sheet">
+    Menu
+    <svg class="mobile-nav__hamburger" viewBox="0 0 100 100" focusable="false" aria-hidden="true">
+      <rect width="80" height="12" x="10" y="20" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="45" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="70" rx="5"></rect>
+    </svg>
+  </button>
+  <div class="mobile-nav__sheet link-inverted link-nav" id="sheet" aria-hidden="true">
+    <div class="mobile-nav__region"></div>
+    <nav class="mobile-nav__main-menu" aria-label="Main menu">
+    <ul class="mobile-nav__navbar">
+    <li><a href="/"><span>Home</span></a></li>
+    <li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+    </ul>
+    </nav>
+  </div>
+</div>
+<main class="main layout__main">
+<article class="single-view single-view--posts">
+<header>
+<h1 class="title mb--xxs">How I Manage All My Configuration Files</h1>
+<div class="submitted meta">
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2025-09-21T14:53:06&#43;01:00">21 September, 2025</time>
+
+</div>
+</header>
+
+<p>At one point or another, every developer will have to set up their workspace on a completely new machine. The reason could be anything, but what is certain is that this day will come sooner or later. And when it comes, be sure to have prepared for it so it doesn’t take you days, but hours at most.</p>
+<p>How do we prepare for it? Well, the biggest workload when setting up a workspace is configuration. It takes time to set up partitions or install mandatory applications. But the biggest gotcha is configuring your applications to fit your needs. Be it a simple VS Code config file or a complete Neovim IDE, it does not get better the longer you work in this field.</p>
+<p>But there is a simple solution I found that has no dependencies and is straightforward to put in place. And it also works on both Linux and macOS! So, let’s get to work!</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Basic knowledge of the CLI.</li>
+</ul>
+<h1 id="the-problem-we-are-trying-to-solve">The problem we are trying to solve.</h1>
+<p>The goal is to push all important configuration files to a Git repository. This is not demanding in itself, but there is one important caveat to consider.</p>
+<p><strong>The configuration files are not in one place, but are actually spread across the whole system.</strong> This means we can’t push one folder to Git because we need the dotfiles at different locations in the system. And if we were to push one folder to Git, we would need to replace the configuration file each time we make a change. No bueno.</p>
+<p>The solution is actually pretty straightforward. We first create one folder where we put every single one of our configuration files. Then we create symlinks for each file to its desired location. The symlink then makes a copy to that location without actually creating a new file. Now we have a central location where we manage all our configuration files in one place. This allows us to create a Git repository in that folder.</p>
+<h1 id="how-symlinks-are-the-way-to-go">How symlinks are the way to go.</h1>
+<p>Before we start implementing, let’s take a moment to define symlinks. The word symlink is a short form of symbolic link. Symbolic links are file-system objects that point toward another file or folder. These links serve as shortcuts. They have special features that let users reach files in different folder locations. They give operating systems directions to find the “target” file.</p>
+<p>These types of links began to appear in operating systems in the late &rsquo;70s, such as RDOS. In modern computing, most Unix-like operating systems support symbolic links. These systems follow the POSIX standard. They are often used in cloud storage services like OneDrive, Google Drive, or Dropbox.</p>
+<p>Symbolic links are further divided into two types: hard links and soft links. Hard links are files that point to the same data in storage as the original file. Thus, whenever you change the hard link, you also change the original. This not only includes the content but also permissions, ownership, and timestamps. And when you remove the original file, the data still exists under the secondary hard link. The data is only removed from your drive when there are no links to it.</p>
+<p>Soft links are what we focus on. They are often the links people mention when talking about symbolic links. A soft link is different from a hard link. It isn’t a real file. Instead, it’s a special file that points to the original file. So every time you open and edit a soft link, what you are actually doing is editing the original file. This also means that if you delete or move the original file of the soft link. The pointer of the soft link is now broken, which makes the data unusable. Be sure to keep this in mind.</p>
+<h1 id="creating-our-first-symlink">Creating our first symlink.</h1>
+<p>Now that we know what symlinks are, the solution seems simple. All we need to do is move our important config files into one monorepo. Then, we can set up symlinks to their right locations. Let’s see this in action.</p>
+<p>Suppose we have a .bashrc with our custom configuration that we want to push to Git. The first thing we need to do is create a folder for our repo. I’ll create mine at ~/Desktop/dotfiles. I will also create a folder for the .bashrc to maintain structure. This will come in handy when we have several configuration files; trust me.</p>
+<pre tabindex="0"><code>mkdir -p ~/Desktop/dotfiles/bash
+cd ~/Desktop/dotfiles/bash
+</code></pre><p>We need to move our .bashrc file to the new folder. Then, we&rsquo;ll create a symlink to its original location. You can create symlinks in different ways. But the easiest method is to go to the desired location and type the command: <code>ln -s &lt;FILE_LOCATION&gt;</code>.</p>
+<pre tabindex="0"><code>mv ~/.bashrc ./
+cd ~
+ln -s ~/Desktop/dotfiles/bash/.bashrc
+</code></pre><p>This will create the symlink in the current directory with the same name as the original file. It might seem a bit hard at first, but after you’ve done it a couple of times, it becomes easy. In fact, you could say it gets… <em>soft</em>. (Because, you know, <em>soft links</em>.)</p>
+<p>Once you set this up for your other config files, your dotfiles repo will become your personal toolkit for any new machine. The best part? The next time you switch computers, all you’ll need to do is clone your repository and re-establish the symlinks. In just a few commands, your familiar setup will be back, making time for the important things.</p>
+<p>Managing dotfiles this way is simple, portable, and future-proof. You can set up a new laptop, start a cloud server, or try things on a VM. Your environment is always ready for you. Think of it as your developer “save file” — one you can load anywhere, anytime.</p>
+
+
+</article>
+</main>
+
+
+<footer class="footer layout__footer mt--l">
+<p><span>© Nemanja Tomic - Blogging About Tech</span></p>
+
+<p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/frjo/hugo-theme-zen">Zen theme</a>.</p>
+
+</footer>
+
+</div>
+</body>
+</html>

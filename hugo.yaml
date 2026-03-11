@@ -24,7 +24,7 @@ params:
   dateformat: "2 January, 2006"
   logowidth: "75"
   mainSections:
-    - blog
+    - posts
   feedlinks: true
   mobileMenu: true
   poweredby: true
@@ -50,9 +50,9 @@ languages:
         - name: "Home"
           weight: -10
           pageRef: "/"
-        - name: "Blog"
+        - name: "Posts"
           weight: 10
-          pageRef: "/blog/"
+          pageRef: "/posts/"
         # TODO: About and Contact page
         # - name: "About"
         #   weight: 15

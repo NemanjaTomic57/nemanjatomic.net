@@ -87,7 +87,7 @@
 <nav class="main-menu mx--xs layout__navigation" aria-label="Main menu">
 <ul class="flex-inline mx--0">
 <li><a href="/" aria-current="page"><span>Home</span></a></li>
-<li><a href="/blog/"><span>Blog</span></a></li>
+<li><a href="/posts/"><span>Posts</span></a></li>
 </ul>
 </nav>
 <div class="mobile-nav" dir="ltr" hidden>
@@ -105,7 +105,7 @@
     <nav class="mobile-nav__main-menu" aria-label="Main menu">
     <ul class="mobile-nav__navbar">
     <li><a href="/" aria-current="page"><span>Home</span></a></li>
-    <li><a href="/blog/"><span>Blog</span></a></li>
+    <li><a href="/posts/"><span>Posts</span></a></li>
     </ul>
     </nav>
   </div>
@@ -117,17 +117,31 @@
 <h1 id="latest-blog-posts">Latest Blog Posts</h1>
 
 
-<article class="list-view list-view--blog">
+<article class="list-view list-view--posts">
 <header>
-<h2 class="title mt--s mb--xxs"><a href="/blog/identity-and-access-management-authentication-and-authorization/">Identity and Access Management: Authentication and Authorization</a></h2>
+<h2 class="title mt--s mb--xxs"><a href="/posts/identity-and-access-management-authentication-and-authorization/">Identity and Access Management: Authentication and Authorization</a></h2>
 <div class="submitted meta">
-<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2026-03-05T15:17:45&#43;01:00">5 March, 2026</time>
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2025-10-05T15:17:45&#43;01:00">5 October, 2025</time>
 
 </div>
 
 </header>
-<p>Welcome to the first part of my short trilogy about the topic identity and access management. In this series, we will walk through the best practices in todays world of IT regarding the management of users and persisting user sessions securely.</p>
-<p>The first part will give you a general outlook of the landscape of authentication and authorization. You will gain fundamental knowledge that is required for the more complex topics. The second part will be about how the workflow looks like for authorizing a newly logged-in user, where we&rsquo;ll take a closer look at standards like OAuth and OpenID Connect (OIDC) to understand how they enable secure and seamless user access across applications. Passkeys will also be a very interesting topic here, so stay tuned. And in the third and last part, a hands-on tutorial will guide us on how to securely persist a session in Asp.Net Core using Json Web Tokens (JWT) inside a cookie.</p>
+<p>Welcome to the first part of my short trilogy about the topic of identity and access management (IAM). In this series, we’ll look at the best ways to manage users. We’ll also discuss how to handle secure user sessions in today’s IT world.</p>
+<p>The first part gives an overview. It covers authentication and authorization. You will gain the fundamental knowledge required for the more complex topics.</p>
+<p>The second part will be about how the workflow looks for authorizing users. We’ll look at how to enable secure user authorization. We’ll use standards like OAuth and OpenID Connect (OIDC). Passkeys will also be a very interesting topic here, so stay tuned.</p>
+</article>
+
+<article class="list-view list-view--posts">
+<header>
+<h2 class="title mt--s mb--xxs"><a href="/posts/how-i-manage-all-my-dotfiles-with-github/">How I Manage All My Configuration Files</a></h2>
+<div class="submitted meta">
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2025-09-21T14:53:06&#43;01:00">21 September, 2025</time>
+
+</div>
+
+</header>
+<p>At one point or another, every developer will have to set up their workspace on a completely new machine. The reason could be anything, but what is certain is that this day will come sooner or later. And when it comes, be sure to have prepared for it so it doesn’t take you days, but hours at most.</p>
+<p>How do we prepare for it? Well, the biggest workload when setting up a workspace is configuration. It takes time to set up partitions or install mandatory applications. But the biggest gotcha is configuring your applications to fit your needs. Be it a simple VS Code config file or a complete Neovim IDE, it does not get better the longer you work in this field.</p>
 </article>
 
 
