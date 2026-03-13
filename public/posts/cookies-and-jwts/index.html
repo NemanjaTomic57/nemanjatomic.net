@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Cookies and JWTs - Use Cases and Practical Example in C# – Nemanja Tomic - Blogging About Tech</title>
+
+<meta name="created" content="2025-10-18T15:16:22+0100">
+<meta name="modified" content="2025-10-18T15:16:22+0100">
+<meta name="author" content="Nemanja Tomic">
+<meta name="contact" content="nemanja.tomic@ik.me">
+<meta property="og:site_name" content="Nemanja Tomic - Blogging About Tech">
+<meta property="og:title" content="Cookies and JWTs - Use Cases and Practical Example in C#">
+<meta property="og:url" content="http://localhost:1313/posts/cookies-and-jwts/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.157.0">
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/cookies-and-jwts/">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/mobilemenu.css" media="screen">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "Cookies and JWTs - Use Cases and Practical Example in C#",
+    "datePublished": "2025-10-18T15:16:22+01:00",
+    "dateModified": "2025-10-18T15:16:22+01:00",
+    "url" : "http://localhost:1313/posts/cookies-and-jwts/",
+    
+    "author": {
+      "@type": "Person",
+      "name": "Nemanja Tomic"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http://localhost:1313/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nemanja Tomic - Blogging About Tech",
+      "url": "http://localhost:1313/"
+    }
+  }
+</script>
+
+<script>
+(() => {
+  // <stdin>
+  (function() {
+    document.querySelector("html").classList.replace("nojs", "js");
+  })();
+})();
+
+</script>
+
+<script defer src="/js/mobilemenu.91539dcbc30264a42d652fdd6446fb725e2e13cecc3644eab74db3aad1b1d9d2.js"></script>
+<script defer src="/js/script.5ed52cdd956021fd7194109b25dbc5cbe93a1085461b9f29b1284df94c19481c.js"></script>
+
+
+
+
+
+
+</head>
+
+<body class="single-page section-page--posts">
+<div class="page layout__page">
+<header class="header layout__header">
+<a href="/" title="Home" rel="home" class="header__logo">
+<img src="/images/logo.png" width="75" alt="Home" class="header__logo-image">
+</a>
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic - Blogging About Tech</span></a>
+</h1>
+<div class="region header__region">
+</div>
+</header>
+
+<nav class="main-menu mx--xs layout__navigation" aria-label="Main menu">
+<ul class="flex-inline mx--0">
+<li><a href="/"><span>Home</span></a></li>
+<li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+</ul>
+</nav>
+<div class="mobile-nav" dir="ltr" hidden>
+  <div class="mobile-nav__cover"></div>
+  <button class="mobile-nav__toggle button" aria-expanded="false" aria-controls="sheet">
+    Menu
+    <svg class="mobile-nav__hamburger" viewBox="0 0 100 100" focusable="false" aria-hidden="true">
+      <rect width="80" height="12" x="10" y="20" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="45" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="70" rx="5"></rect>
+    </svg>
+  </button>
+  <div class="mobile-nav__sheet link-inverted link-nav" id="sheet" aria-hidden="true">
+    <div class="mobile-nav__region"></div>
+    <nav class="mobile-nav__main-menu" aria-label="Main menu">
+    <ul class="mobile-nav__navbar">
+    <li><a href="/"><span>Home</span></a></li>
+    <li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+    </ul>
+    </nav>
+  </div>
+</div>
+<main class="main layout__main">
+<article class="single-view single-view--posts">
+<header>
+<h1 class="title mb--xxs">Cookies and JWTs - Use Cases and Practical Example in C#</h1>
+<div class="submitted meta">
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2025-10-18T15:16:22&#43;01:00">18 October, 2025</time>
+
+</div>
+</header>
+
+<p>Welcome to the third and final part of my Identity and Access Management (IAM) trilogy. In the last two parts, we defined what authentication and authorization are. We also discussed two very important protocols for managing authentication and authorization via third-party apps like OAuth 2.0 and OpenID Connect.</p>
+<p>This covers most of the key aspects of authentication and authorization. However, there is still one important puzzle piece missing, and that is persisting a session after a user logs in.</p>
+<p>To really understand this problem, imagine a user authenticates via the login form and then refreshes the page. Without implementing any mechanism to persist the session after login, the user still can’t authorize herself for anything because the backend requires something that actually proves the user has authenticated themselves at some point. This is where cookies and JSON Web Tokens (JWTs) come in.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Authentication and Authorization</li>
+</ul>
+<h1 id="what-you-should-know-about-cookies">What you should know about cookies</h1>
+<p>Session cookies are stateful elements. They contain data that the server sends to the browser for temporary use. The authentication data inside a cookie is stored on both the client and server. The server keeps track of active sessions in a database, while the browser holds the identifier to the active session. When a request is made to the server, the session ID is used to look up information such as user roles or privileges for authentication, in order to check if the session is valid.</p>
+<h2 id="advantages-of-cookies">Advantages of cookies</h2>
+<p>Consider these key benefits:</p>
+<ul>
+<li>Cookies use the same session across subdomains: They take a Domain argument. You specify the domain name for which the cookie is valid. Setting the domain name to yoursite.com allows the same session for the domain and subdomains.</li>
+<li>They reduce the manipulation by client-side JavaScript: You can restrict client-side access by setting the HttpOnly flag when creating the cookie on your backend. This reduces the likelihood of cross-site scripting (XSS) attack on your application, since most XSS attacks involve the use of malicious JS code.</li>
+<li>They require little storage: Cookies use as little as 6 KB to store a simple user ID. Depending on what information you store in your cookie, you’ll transmit a minimal amount of bytes with every request.</li>
+<li>Cookies are managed by the browser: This is automatic, so you don’t have to worry about it.</li>
+</ul>
+<h2 id="the-downside-of-cookies">The downside of cookies</h2>
+<p>Some of the disadvantages of cookies include:</p>
+<ul>
+<li>Cross-site request forgery attacks (XSRF or CSRF): CSRF attacks are only possible with cookie-based session handling. The SameSite attribute allows you to decide whether cookies should be sent to third-party apps using the Strict or Lax settings. A strict setting can prevent CSRF attacks, but it can also contribute to a poor browser experience for the user. For example, say your site uses a cookie named tutorials_shown to determine wheather a user has already seen specific tutorials in order to show them new ones every time if they visit. If SameSite is set to Strict and someone follows a link to your site, the cookie will not be sent on that first request, and previously viewed tutorials will be shown. This creates a less personalized user experience.</li>
+<li>Scaling issues: Since sessions are tied to a particular server, you can run into issues when scaling your application. In a load-balanced application, if a logged-in user is redirected to a new server, the existing session data is lost. To prevent this, sessions need to be stored in a shared database or cache. This increases the complexity of each interaction.</li>
+<li>Not good for API authentication: APIs provide one-time resources for authenticated end-users and don’t need to keep track of user sessions. Cookies don’t work perfectly in this case, since they track and verify active sessions. Tokens, meanwhile, provide authentication with a unique identifier on every request to the API endpoints.</li>
+</ul>
+<p>Cookies aren’t the only way to store session IDs; other options include URLs and form fields. Cookies are more secure than those two, but how secure are cookies?</p>
+<ul>
+<li>Cookies are only secure in an HTTPS connection. Enforcing the Secure flag ensures that cookies are only sent via an encrypted HTTPS connection. Use of HTTPS prevents disclosure of session ID in man-in-the-middle (MITM) attacks.</li>
+<li>As noted earlier, cookies can be manipulated by client-side scripts (JavaScript or Visual Basic). This can be prevented by using the HttpOnly flag.</li>
+</ul>
+<p>While cookies can be made secure by setting the appropriate attributes and following best practices, they can also be made insecure by neglecting these steps.</p>
+<h1 id="json-web-tokens">JSON Web Tokens</h1>
+<p>Tokens—or JWTs in this context—are stateless in nature, meaning the server doesn’t need to keep a record of the token. Each token is self-contained, holding the information needed for verification and identification on the server.</p>
+<h2 id="advantages-of-tokens">Advantages of tokens</h2>
+<p>Here are some specific advantages of tokens:</p>
+<ul>
+<li>Flexibility and ease of use: JWTs are easy to use. Their self-contained nature helps you achieve what you need for verification without database lookups. This makes JWTs more suitable to use in an API, since the API server doesn’t need to keep track of user sessions.</li>
+<li>Cross-platform capabilities: Because of their stateless nature, tokens can be seamlessly implemented on mobile platforms and internet of things (IoT) applications, especially in comparison to cookies…</li>
+<li>Multiple storage options: Tokens can be stored in a number of ways in browsers or front-end applications.</li>
+</ul>
+<p>If you use a browser’s local storage, tokens can’t be accessed by a subdomain. However, they can be accessed and manipulated by any JavaScript code on the webpage, as well as by browser plugins. This isn’t a recommended method: first, it poses a security risk, plus you must manage the storage.</p>
+<p>Session storage is another way to store tokens. The drawback is that the token is destroyed when the browser is closed.</p>
+<h2 id="disadvantages-of-jwt-tokens">Disadvantages of JWT tokens</h2>
+<p>Here are some downsides of tokens to be aware of:</p>
+<ul>
+<li>Revocation: A JWT cannot be revoked. Even if a JWT leaks, it remains valid until it expires, resulting in a serious security hole. As a workaround, you must implement a deny-list technique that requires a more complex setup.</li>
+<li>Need more space: A JWT might need 300+ bytes to store a simple user ID, because they store other data for authentication.</li>
+<li>Stale: The information inside a JWT represents a snapshot in time when the token was originally created. The associated user may now have different access levels or have been removed from the system altogether.</li>
+</ul>
+<h2 id="but-what-about-the-security-of-tokens">But what about the security of tokens?</h2>
+<ul>
+<li>JWTs are cryptographically signed and base64-encoded. They’re only secure when they aren’t exposed, so they should be treated like passwords.</li>
+<li>A JWT can be viewed but not manipulated on the client side. You can take your token to jwt.io, choose the algorithm you used to sign, and see the data. You just can’t tamper with it because it’s issued on the server.</li>
+<li>The lifespan of a JWT should be kept short to limit the risk caused by a leaked token.</li>
+</ul>
+<h1 id="when-to-use-cookies-or-tokens">When to Use Cookies or Tokens</h1>
+<p>In general, the choice between a session cookie and a structured token will depend on your use case. You should use cookies when you need to keep track of user interactions, such as with an e-commerce application or website. You can use tokens when building API services or implementing distributed systems.</p>
+<p>Another popular option is to use a token inside a cookie. This is by far the most secure option for persisting user sessions, while still giving you all the flexibility you would have with JWT tokens. The technique is simple. You create your token in the backend, but instead of returning the token as a JSON response, you return a cookie that contains the JWT token.</p>
+<p>Let’s take a look at how this would look in C# (ASP.NET Core 9.0).</p>
+<pre tabindex="0"><code>public string GenerateToken(string userId, string email)
+{
+ var tokenHandler = new JwtSecurityTokenHandler();
+ var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(&#34;JWT_KEY&#34;)!);
+
+ var claims = new List&lt;Claim&gt;
+ {
+     new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+     new(JwtRegisteredClaimNames.Sub, userId),
+     new(JwtRegisteredClaimNames.Email, email)
+ };
+
+ var tokenDescriptor = new SecurityTokenDescriptor
+ {
+     Subject = new ClaimsIdentity(claims),
+     Expires = DateTime.UtcNow.AddMinutes(60),
+     Issuer = &#34;https://api.tonit.dev&#34;,
+     Audience = &#34;https://api.tonit.dev&#34;,
+     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+ };
+
+ var token = tokenHandler.CreateToken(tokenDescriptor);
+ return tokenHandler.WriteToken(token);
+}
+
+[HttpPost(&#34;login&#34;)]
+public async Task&lt;ActionResult&gt; Login(LoginDto dto)
+{
+ var user = await signInManager.UserManager.FindByNameAsync(dto.UserName);
+
+ if (user == null || !await signInManager.UserManager.CheckPasswordAsync(user, dto.Password))
+ {
+     return Unauthorized();
+ }
+
+ var token = tokenGenerator.GenerateToken(user.Id, user.Email!);
+
+ var isDev = Environment.GetEnvironmentVariable(&#34;Environment&#34;) == &#34;Development&#34;;
+ Console.WriteLine(isDev);
+
+ // Create cookie options
+ var cookieOptions = new CookieOptions
+ {
+     HttpOnly = true,
+     Secure = true,
+     SameSite = SameSiteMode.Strict,
+     Expires = DateTime.UtcNow.AddHours(1),
+ };
+
+ Response.Cookies.Append(&#34;jwt&#34;, token, cookieOptions);
+
+ return Ok(new { message = &#34;Login successful&#34; });
+}
+</code></pre><p>As you can see, it is pretty easy. The only thing we have to do is to append the token to the cookies. The rest is more or less the same. What is missing now is to configure the authentication service in the Program.cs file to look for the token inside the cookies.</p>
+<pre tabindex="0"><code>builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =&gt;
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(&#34;JWT_KEY&#34;)!)),
+            ValidIssuer = &#34;https://api.tonit.dev&#34;,
+            ValidAudience = &#34;https://api.tonit.dev&#34;,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+        };
+
+        opt.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =&gt;
+            {
+                if (context.Request.Cookies.TryGetValue(&#34;jwt&#34;, out var token))
+                {
+                    context.Token = token;
+                }
+                return Task.CompletedTask;
+            }
+        };
+    });
+</code></pre><p>I won’t go into any more detail on how this works specifically for C# here. You can always read more about it in the official documentation. But to be quite frank with you, once you understand how it works in one language, you should understand it in all other languages as well (at least in theory).</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Great, the trilogy is done! And to be honest, I am quite happy with it. Of course, I can always go more in depth, but I think I hit the sweet spot for people who are not as tech savy.</p>
+
+
+</article>
+</main>
+
+
+<footer class="footer layout__footer mt--l">
+<p><span>© Nemanja Tomic - Blogging About Tech</span></p>
+
+<p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/frjo/hugo-theme-zen">Zen theme</a>.</p>
+
+</footer>
+
+</div>
+</body>
+</html>

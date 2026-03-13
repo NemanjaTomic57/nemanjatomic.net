@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Deep Dive Into Oauth and Openid Connect – Nemanja Tomic - Blogging About Tech</title>
+
+<meta name="created" content="2026-03-11T17:14:45+0100">
+<meta name="modified" content="2026-03-11T17:14:45+0100">
+<meta name="author" content="Nemanja Tomic">
+<meta name="contact" content="nemanja.tomic@ik.me">
+<meta property="og:site_name" content="Nemanja Tomic - Blogging About Tech">
+<meta property="og:title" content="Deep Dive Into Oauth and Openid Connect">
+<meta property="og:url" content="http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.157.0">
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/mobilemenu.css" media="screen">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "Deep Dive Into Oauth and Openid Connect",
+    "datePublished": "2026-03-11T17:14:45+01:00",
+    "dateModified": "2026-03-11T17:14:45+01:00",
+    "url" : "http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/",
+    
+    "author": {
+      "@type": "Person",
+      "name": "Nemanja Tomic"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http://localhost:1313/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nemanja Tomic - Blogging About Tech",
+      "url": "http://localhost:1313/"
+    }
+  }
+</script>
+
+<script>
+(() => {
+  // <stdin>
+  (function() {
+    document.querySelector("html").classList.replace("nojs", "js");
+  })();
+})();
+
+</script>
+
+<script defer src="/js/mobilemenu.91539dcbc30264a42d652fdd6446fb725e2e13cecc3644eab74db3aad1b1d9d2.js"></script>
+<script defer src="/js/script.5ed52cdd956021fd7194109b25dbc5cbe93a1085461b9f29b1284df94c19481c.js"></script>
+
+
+
+
+
+
+</head>
+
+<body class="single-page section-page--posts">
+<div class="page layout__page">
+<header class="header layout__header">
+<a href="/" title="Home" rel="home" class="header__logo">
+<img src="/images/logo.png" width="75" alt="Home" class="header__logo-image">
+</a>
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>Nemanja Tomic - Blogging About Tech</span></a>
+</h1>
+<div class="region header__region">
+</div>
+</header>
+
+<nav class="main-menu mx--xs layout__navigation" aria-label="Main menu">
+<ul class="flex-inline mx--0">
+<li><a href="/"><span>Home</span></a></li>
+<li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+</ul>
+</nav>
+<div class="mobile-nav" dir="ltr" hidden>
+  <div class="mobile-nav__cover"></div>
+  <button class="mobile-nav__toggle button" aria-expanded="false" aria-controls="sheet">
+    Menu
+    <svg class="mobile-nav__hamburger" viewBox="0 0 100 100" focusable="false" aria-hidden="true">
+      <rect width="80" height="12" x="10" y="20" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="45" rx="5"></rect>
+      <rect width="80" height="12" x="10" y="70" rx="5"></rect>
+    </svg>
+  </button>
+  <div class="mobile-nav__sheet link-inverted link-nav" id="sheet" aria-hidden="true">
+    <div class="mobile-nav__region"></div>
+    <nav class="mobile-nav__main-menu" aria-label="Main menu">
+    <ul class="mobile-nav__navbar">
+    <li><a href="/"><span>Home</span></a></li>
+    <li><a href="/posts/" aria-current="page"><span>Posts</span></a></li>
+    </ul>
+    </nav>
+  </div>
+</div>
+<main class="main layout__main">
+<article class="single-view single-view--posts">
+<header>
+<h1 class="title mb--xxs">Deep Dive Into Oauth and Openid Connect</h1>
+<div class="submitted meta">
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2026-03-11T17:14:45&#43;01:00">11 March, 2026</time>
+
+</div>
+</header>
+
+<p>Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.</p>
+<p>There are a lot of tutorials about this topic, especially OAuth. But a lot of them contain a lot of jargon and false information. There are two reasons for this. First, authentication and authorization are themselves complex topics. They require a lot of background information to even begin with. Second, the protocols have a lot of different ways for implementation. This makes it hard to deliver a good tutorial that covers most aspects of the technology. I wanted this article to be clear and accurate for software developers and beginners. So if you work in or around tech, this article is for you.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><a href="https://www.nemanjatomic.net/posts/identity-and-access-management-authentication-and-authorization">Authentication and Authorization</a></li>
+</ul>
+<h1 id="a-small-trip-down-memory-lane">A Small Trip Down Memory Lane</h1>
+<p>Authentication has been key in software development since the dotcom boom, and it remains vital today. Yet, the identity use cases back then were pretty simple compared to today. Log in a user using a simple form. Then, keep the session alive with a cookie. Also, enable single sign-on across different sites if multiple applications share the same users. Nothing too crazy.</p>
+<p>You could manage this by building your own authentication and authorization systems. But as technology advanced, it became more complex. After the smartphone launched in 2007, new issues came up. People began to consider how to manage users more simply and efficiently.</p>
+<ol>
+<li>
+<p>With the invention of the smartphone, we needed a way to log users in on mobile devices. Those devices, more often than not, could not save cookies, which meant there had to be another solution.</p>
+</li>
+<li>
+<p>As apps became more interconnected with each other, there had to be a way to transfer user information from a third-party app.</p>
+</li>
+</ol>
+<p>In 2012, developers created OAuth 2.0 to address new use cases. A 1.0 version had come out in 2007 but had limited features. Practical examples are:</p>
+<ul>
+<li>
+<p>A photo editing app wants permission to access a user&rsquo;s Google Drive files.</p>
+</li>
+<li>
+<p>A CI/CD tool needs to push to a GitHub repository on your behalf.</p>
+</li>
+<li>
+<p>A backend service wants to fetch data from an API using a machine-to-machine token (client credentials flow).</p>
+</li>
+</ul>
+<h1 id="oauth-20-in-its-core">OAuth 2.0 In Its Core</h1>
+<p>So we know that we need a new protocol enabling us to check if a user is authorized to do certain things. Let&rsquo;s take a look at how the protocol actually works. Let’s use a clear example. Imagine our photo editing app is asking to access a user’s Google Drive files.</p>
+<figure class="image">
+<img src="/images/20251012_flow-diagram.png" loading="lazy" alt="Flow diagram for OAuth 2.0">
+</figure>
+
+<p>First things first, the photo app requests access to some resource from the OAuth 2.0 server. This is where the user gets redirected to the OAuth server, which is also called the authorization server. The authorization server does not hold the requested permission that our photo app has requested. Its sole purpose is to verify that the user is who he says he is. The user enters his credentials in the authorization server front end. After he clicks submit, Google&rsquo;s OAuth server returns an access token to the client (if the credentials match a database entry).</p>
+<p>The access token can then be used to make a request to the Google resource server, which holds the data our third-party application wants access to. We send a request to the resource server with our access token. The server checks with the authorization server to see if the token is valid. If it is, the server returns the requested resource.</p>
+<p>Of course, there is a lot more to it, but this is pretty much how it works at a high level. There are, of course, more security checks. The authorization server checks the scope of the requested data. It ensures the requested resources match the user&rsquo;s consent. If everything checks out, the requested resources, in this case, files from Google Drive, are returned to our photo-editing app.</p>
+<h1 id="limitations-of-oauth-20">Limitations of OAuth 2.0</h1>
+<p>That&rsquo;s all good and well, but there is one small problem we haven&rsquo;t addressed so far. OAuth is only designed with authorization in mind. It should not be used for authentication. We learned the difference between those two <a href="https://www.tonit.dev/blog/identity-and-access-management-authentication-and-authorization">in my last blog post</a>. In short, authentication answers the question &ldquo;Who are you?&rdquo; while authorization answers the question &ldquo;What are you allowed to access?&rdquo;.</p>
+<p>As I said, as long as we stay with authorization, OAuth is fine. This also matches our use case in our example with the photo editing app. The only thing we need is permission to access files from Google Drive. No more, no less.</p>
+<p>But there is another very popular use case. Imagine that we would not only want to access the files on the drive, but to actually sign in with our Google account to our app. You can even see this in action on all apps having a button &ldquo;Sign in with Google&rdquo;, or something similar. In this case, we don&rsquo;t want to authorize the user anymore, but to authenticate him. This means we will also need some user info to save into our database, like name, email, and so on. That&rsquo;s where OpenID comes into play.</p>
+<h1 id="meet-openid-connect">Meet OpenID Connect</h1>
+<p>For that reason, organizations used OAuth even for the authentication of users for a pretty long time. This required some hacks and workarounds, and it certainly was not within the best practices it should have been. But until the release of OpenID in 2014, there was no other solution. This changed with the release of OpenID.</p>
+<p>OpenID Connect adds an identity layer on top of OAuth 2.0. This helps clients, like websites or apps, confirm a user&rsquo;s identity. Where OAuth 2.0 governs access to your data, OpenID establishes your identity based on the access granted by OAuth 2.0.</p>
+<p><img src="https://storage.googleapis.com/1123987-blog/20251012_oidc.png" alt="OIDC extending OAuth 2.0">
+<figure class="image">
+<img src="/images/20251012_oidc.png" loading="lazy" alt="OIDC extending OAuth 2.0">
+</figure>
+</p>
+<p>But, OpenID is not its own protocol, which is a common misconception. It builds on OAuth 2.0. It adds a new scope parameter, &ldquo;openid,&rdquo; during the initial request from the client to the authorization server. It also introduces a new endpoint, &ldquo;/userinfo,&rdquo; on the resource server. This endpoint returns the user information for the requester.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>I hope you gain valuable information on how IAM works across applications. It is pretty simple once you understand the big picture. OAuth 2.0 handles authorization for third-party apps. OpenID Connect builds on OAuth 2.0 by adding authentication.</p>
+<p>In the final part of the trilogy, we’ll explore what to do after a user logs in. We&rsquo;ll discuss how to store the session in a secure and efficient way.</p>
+
+
+</article>
+</main>
+
+
+<footer class="footer layout__footer mt--l">
+<p><span>© Nemanja Tomic - Blogging About Tech</span></p>
+
+<p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/frjo/hugo-theme-zen">Zen theme</a>.</p>
+
+</footer>
+
+</div>
+</body>
+</html>

@@ -80,7 +80,7 @@ In many cases, RBAC models establish a role hierarchy, in which the role structu
 
 ## Rule-based Access Control (RuBAC)
 
-In this model, access is granted or denied based on a set of predetermined rules that involves individual user criteria or conditions. Implementation includes identifying user-specific needs, creating [identity and access management (IAM])(https://www.redhat.com/en/topics/security/what-identity-and-access-management-iam) policies that define the rules for these needs, and applying conditions to enhance security. Rules are typically based on conditions such as time of access, IP address, and multi-factor authentication. For example, access may be granted only during business hours, if the user is securely logged into a Virtual Private Network (VPN), or in on-premise applications only.
+In this model, access is granted or denied based on a set of predetermined rules that involves individual user criteria or conditions. Implementation includes identifying user-specific needs, creating [identity and access management (IAM)](https://www.redhat.com/en/topics/security/what-identity-and-access-management-iam) policies that define the rules for these needs, and applying conditions to enhance security. Rules are typically based on conditions such as time of access, IP address, and multi-factor authentication. For example, access may be granted only during business hours, if the user is securely logged into a Virtual Private Network (VPN), or in on-premise applications only.
 
 ## Attribute-based Access Control (ABAC)
 
@@ -91,8 +91,6 @@ ABAC is based on user, resource, and environment attributes and evaluates these 
 This security technique enforces access restrictions based on fixed mandatory policies and rules set by system admins where permissions can't be modified by users. Disabling user access modifications ensures that sensitive information is protected according to non-negotiable security protocols. In this system, each user is assigned a predetermined security level and resources are classified by its level of sensitivity. Access is granted or denied depending on whether a user's security level matches or surpasses the resource's classification level.
 
 # Conclusion
-
-Here’s a revised version of your text:
 
 First, authentication proves the user's identity. It’s crucial to store hashed passwords in your database, not plain text. We also learned that MFA and SSO are helpful. They allow us to verify many users at once using directory-based authentication.
 

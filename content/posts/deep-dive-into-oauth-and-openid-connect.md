@@ -1,6 +1,5 @@
 +++
 date = '2026-03-11T17:14:45+01:00'
-draft = true
 title = 'Deep Dive Into Oauth and Openid Connect'
 +++
 Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
@@ -33,7 +32,7 @@ In 2012, developers created OAuth 2.0 to address new use cases. A 1.0 version ha
 
 So we know that we need a new protocol enabling us to check if a user is authorized to do certain things. Let's take a look at how the protocol actually works. Let’s use a clear example. Imagine our photo editing app is asking to access a user’s Google Drive files.
 
-![Flow diagram for OAuth 2.0](https://storage.googleapis.com/1123987-blog/20251012_flow-diagram.png)
+{{< figure src="images/20251012_flow-diagram.png" alt="Flow diagram for OAuth 2.0" >}}
 
 First things first, the photo app requests access to some resource from the OAuth 2.0 server. This is where the user gets redirected to the OAuth server, which is also called the authorization server. The authorization server does not hold the requested permission that our photo app has requested. Its sole purpose is to verify that the user is who he says he is. The user enters his credentials in the authorization server front end. After he clicks submit, Google's OAuth server returns an access token to the client (if the credentials match a database entry). 
 
@@ -56,6 +55,7 @@ For that reason, organizations used OAuth even for the authentication of users f
 OpenID Connect adds an identity layer on top of OAuth 2.0. This helps clients, like websites or apps, confirm a user's identity. Where OAuth 2.0 governs access to your data, OpenID establishes your identity based on the access granted by OAuth 2.0.
 
 ![OIDC extending OAuth 2.0](https://storage.googleapis.com/1123987-blog/20251012_oidc.png)
+{{< figure src="/images/20251012_oidc.png" alt="OIDC extending OAuth 2.0" >}}
 
 But, OpenID is not its own protocol, which is a common misconception. It builds on OAuth 2.0. It adds a new scope parameter, "openid," during the initial request from the client to the authorization server. It also introduces a new endpoint, "/userinfo," on the resource server. This endpoint returns the user information for the requester.
 
