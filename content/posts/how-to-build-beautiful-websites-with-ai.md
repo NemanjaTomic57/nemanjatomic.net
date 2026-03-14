@@ -6,6 +6,8 @@ Websites are the core of every business and public figure. Whatever you are doin
 
 In the following article, we will take a look at how we can build a website in the most efficient way possible. The goal is to cut the time commitment while maintaining high quality. You won't need any knowledge at all, since we will build the website completely with AI. In other words, this is a step-by-step tutorial for vibe coding your website without any knowledge of how HTML, CSS, or JavaScript works. So without further ado, let's get started!
 
+{{< figure src="images/20260314_hugo.png" alt="Hugo Static Website Builder Logo" >}}
+
 # The Tools We Will Use
 
 The first step to our dream website is figuring out what tools we need to use. To be quite frank, this is also the hardest and at the same time most important step we have to take. If we choose the wrong tools, the website won't look good. It's as simple as that. And once we actually have the right tools in place, the rest is a piece of cake. All we have to do is tell the AI exactly what we want to have for our end product and... the AI will do the rest. So, what tools are we going to use?
