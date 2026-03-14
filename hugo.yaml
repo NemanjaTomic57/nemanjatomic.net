@@ -1,7 +1,6 @@
 ---
 title: "Nemanja Tomic - Blogging About Tech"
 baseURL: "https://nemanjatomic.net/"
-# TODO: Create custom theme
 theme: "zen"
 languageCode: "en-us"
 

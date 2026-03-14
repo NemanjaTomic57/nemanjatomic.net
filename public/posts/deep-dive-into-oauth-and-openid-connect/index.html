@@ -3,14 +3,14 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Deep Dive Into Oauth and Openid Connect – Nemanja Tomic - Blogging About Tech</title>
+<title>Deep Dive Into OAuth and OpenID Connect – Nemanja Tomic - Blogging About Tech</title>
 
-<meta name="created" content="2026-03-11T17:14:45+0100">
-<meta name="modified" content="2026-03-11T17:14:45+0100">
+<meta name="created" content="2025-10-12T17:14:45+0100">
+<meta name="modified" content="2025-10-12T17:14:45+0100">
 <meta name="author" content="Nemanja Tomic">
 <meta name="contact" content="nemanja.tomic@ik.me">
 <meta property="og:site_name" content="Nemanja Tomic - Blogging About Tech">
-<meta property="og:title" content="Deep Dive Into Oauth and Openid Connect">
+<meta property="og:title" content="Deep Dive Into OAuth and OpenID Connect">
 <meta property="og:url" content="http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/">
 <meta property="og:type" content="article">
 
@@ -22,6 +22,8 @@
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+<style>@layer reset, fonts, vars, base, layout, components, mobilemenu, print, zen;
+</style>
 <link rel="stylesheet" href="/css/styles.css">
 <link rel="stylesheet" href="/css/mobilemenu.css" media="screen">
 <link rel="stylesheet" href="/css/print.css" media="print">
@@ -30,9 +32,9 @@
 {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Deep Dive Into Oauth and Openid Connect",
-    "datePublished": "2026-03-11T17:14:45+01:00",
-    "dateModified": "2026-03-11T17:14:45+01:00",
+    "headline": "Deep Dive Into OAuth and OpenID Connect",
+    "datePublished": "2025-10-12T17:14:45+01:00",
+    "dateModified": "2025-10-12T17:14:45+01:00",
     "url" : "http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/",
     
     "author": {
@@ -113,14 +115,17 @@
 <main class="main layout__main">
 <article class="single-view single-view--posts">
 <header>
-<h1 class="title mb--xxs">Deep Dive Into Oauth and Openid Connect</h1>
+<h1 class="title mb--xxs">Deep Dive Into OAuth and OpenID Connect</h1>
 <div class="submitted meta">
-<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2026-03-11T17:14:45&#43;01:00">11 March, 2026</time>
+<span class="author" itemprop="author">Nemanja Tomic</span> - <time class="created-date" datetime="2025-10-12T17:14:45&#43;01:00">12 October, 2025</time>
 
 </div>
 </header>
 
-<p>Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.</p>
+<p>Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.</p>
 <p>There are a lot of tutorials about this topic, especially OAuth. But a lot of them contain a lot of jargon and false information. There are two reasons for this. First, authentication and authorization are themselves complex topics. They require a lot of background information to even begin with. Second, the protocols have a lot of different ways for implementation. This makes it hard to deliver a good tutorial that covers most aspects of the technology. I wanted this article to be clear and accurate for software developers and beginners. So if you work in or around tech, this article is for you.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>

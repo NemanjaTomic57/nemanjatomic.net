@@ -2,17 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/</loc>
-    <lastmod>2026-03-11T17:14:45+01:00</lastmod>
+    <loc>http://localhost:1313/posts/how-to-build-beautiful-websites-with-ai/</loc>
+    <lastmod>2026-03-13T15:41:00+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-03-11T17:14:45+01:00</lastmod>
+    <lastmod>2026-03-13T15:41:00+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2026-03-05T15:05:03+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/cookies-and-jwts/</loc>
     <lastmod>2025-10-18T15:16:22+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/deep-dive-into-oauth-and-openid-connect/</loc>
+    <lastmod>2025-10-12T17:14:45+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/identity-and-access-management-authentication-and-authorization/</loc>
     <lastmod>2025-10-05T15:17:45+01:00</lastmod>

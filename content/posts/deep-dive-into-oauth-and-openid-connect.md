@@ -1,7 +1,11 @@
 +++
-date = '2026-03-11T17:14:45+01:00'
-title = 'Deep Dive Into Oauth and Openid Connect'
+date = '2025-10-12T17:14:45+01:00'
+title = 'Deep Dive Into OAuth and OpenID Connect'
 +++
+
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
+Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
 Welcome to the second part of the Identity and Access Management (IAM) trilogy. Today, we will explore the best practices for two key protocols: OAuth 2.0 and OpenID Connect (OIDC). The two protocols are very like each other, but still complex on a technical level. Many of you have used one or the other at some point.
 
 There are a lot of tutorials about this topic, especially OAuth. But a lot of them contain a lot of jargon and false information. There are two reasons for this. First, authentication and authorization are themselves complex topics. They require a lot of background information to even begin with. Second, the protocols have a lot of different ways for implementation. This makes it hard to deliver a good tutorial that covers most aspects of the technology. I wanted this article to be clear and accurate for software developers and beginners. So if you work in or around tech, this article is for you.
